@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.robot.modelo;
 
+import java.util.Objects;
+
 public class Robot {
 
     private Coordenada coordenada;
@@ -24,12 +26,17 @@ public class Robot {
 
     public Robot(Zona zona, Orientacion orientacion, Coordenada coordenada) {
         this();
-        this.coordenada = coordenada;
-
+        this.zona = getZona();
+        this.orientacion = getOrientacion();
+        this.coordenada = ;
     }
 
     public Robot(Robot robot) {
-
+        System.out.println("Creamos una copia de robot");
+        Objects.requireNonNull(robot, "No puedo copiar un objeto nulo.");
+        zona = robot.zona;
+        coordenada = robot.coordenada;
+        orientacion = robot.orientacion;
     }
 
     public Zona getZona() {
@@ -37,6 +44,25 @@ public class Robot {
     }
 
     private void setZona(Zona zona) {
-        this.zona = zona;
+        try {
+            this.zona = new Zona();
+        } catch ()
     }
+
+    public Orientacion getOrientacion() {
+        return orientacion;
+    }
+
+    private void setOrientacion(Orientacion orientacion) {
+        this.orientacion = orientacion;
+    }
+
+    public Coordenada getCoordenada() {
+        return coordenada;
+    }
+
+    public void setCoordenada(Coordenada coordenada) {
+        this.coordenada = coordenada;
+    }
+
 }
