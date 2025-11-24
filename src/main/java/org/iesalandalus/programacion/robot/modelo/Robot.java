@@ -7,29 +7,34 @@ public class Robot {
     private Zona zona;
 
     public Robot() {
-        zona = new Zona();
-        coordenada = zona.getCentro();
-        orientacion = Orientacion.NORTE;
+        this.zona = new Zona();
+        this.coordenada = zona.getCentro();
+        this.orientacion = Orientacion.NORTE;
     }
 
     public Robot(Zona zona) {
+        this.zona = zona;
         this.coordenada = zona.getCentro();
-        orientacion = Orientacion.NORTE;
+        this.orientacion = Orientacion.NORTE;
     }
 
     public Robot(Zona zona, Orientacion orientacion) {
+        this.zona = zona;
         this.coordenada = zona.getCentro();
         this.orientacion = orientacion;
     }
 
     public Robot(Zona zona, Orientacion orientacion, Coordenada coordenada) {
-        this();
+        this.zona = zona;
         this.coordenada = coordenada;
-
+        this.orientacion = orientacion;
     }
 
     public Robot(Robot robot) {
-
+        System.out.println("Creamos un robot copia");
+        zona = robot.zona;
+        coordenada = robot.coordenada;
+        orientacion = robot.orientacion;
     }
 
     public Zona getZona() {
@@ -38,5 +43,26 @@ public class Robot {
 
     private void setZona(Zona zona) {
         this.zona = zona;
+    }
+
+
+    public Orientacion getOrientacion() {
+        return orientacion;
+    }
+
+    public void setOrientacion(Orientacion orientacion) {
+        this.orientacion = orientacion;
+    }
+
+    public Coordenada getCoordenada() {
+        return coordenada;
+    }
+
+    public void setCoordenada(Coordenada coordenada) {
+        this.coordenada = coordenada;
+    }
+
+    public void avanzar (Coordenada coordenada) {
+
     }
 }
