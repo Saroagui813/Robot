@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.robot.modelo;
 
+import javax.naming.OperationNotSupportedException;
+
 public class Robot {
 
     private Coordenada coordenada;
@@ -31,7 +33,6 @@ public class Robot {
     }
 
     public Robot(Robot robot) {
-        System.out.println("Creamos un robot copia");
         zona = robot.zona;
         coordenada = robot.coordenada;
         orientacion = robot.orientacion;
@@ -45,7 +46,6 @@ public class Robot {
         this.zona = zona;
     }
 
-
     public Orientacion getOrientacion() {
         return orientacion;
     }
@@ -58,11 +58,26 @@ public class Robot {
         return coordenada;
     }
 
-    public void setCoordenada(Coordenada coordenada) {
-        this.coordenada = coordenada;
+    public void setCoordenada(Coordenada nuevaCoordenada) {
+        this.coordenada = nuevaCoordenada;
     }
 
-    public void avanzar (Coordenada coordenada) {
-
+    public void avanzar throws () {
+        Coordenada nuevaCoordenada = null;
+        switch (orientacion) {
+            case NORTE -> nuevaCoordenada = new Coordenada(coordenada.x(), coordenada.y() + 1);
+            case NORESTE -> nuevaCoordenada = new Coordenada(coordenada.x() + 1, coordenada.y() + 1);
+            case NOROESTE -> nuevaCoordenada = new Coordenada(coordenada.x() - 1, coordenada.y() + 1);
+            case OESTE -> nuevaCoordenada = new Coordenada(coordenada.x() - 1, coordenada.y());
+            case ESTE -> nuevaCoordenada = new Coordenada(coordenada.x() + 1, coordenada.y());
+            case SUR -> nuevaCoordenada = new Coordenada(coordenada.x(), coordenada.y() - 1);
+            case SURESTE -> nuevaCoordenada = new Coordenada(coordenada.x() + 1, coordenada.y() - 1);
+            case SUROESTE -> nuevaCoordenada = new Coordenada(coordenada.x() - 1, coordenada.y() - 1);
+        }
+        try {
+            setCoordenada(nuevaCoordenada);
+        } catch (IllegalArgumentException e) {
+            throw new Rob(e);
+        }
     }
 }
