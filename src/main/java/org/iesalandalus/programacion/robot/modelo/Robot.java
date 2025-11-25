@@ -1,7 +1,5 @@
 package org.iesalandalus.programacion.robot.modelo;
 
-import java.util.Objects;
-
 public class Robot {
 
     private Coordenada coordenada;
@@ -9,31 +7,31 @@ public class Robot {
     private Zona zona;
 
     public Robot() {
-        zona = new Zona();
-        coordenada = zona.getCentro();
-        orientacion = Orientacion.NORTE;
+        this.zona = new Zona();
+        this.coordenada = zona.getCentro();
+        this.orientacion = Orientacion.NORTE;
     }
 
     public Robot(Zona zona) {
+        this.zona = zona;
         this.coordenada = zona.getCentro();
-        orientacion = Orientacion.NORTE;
+        this.orientacion = Orientacion.NORTE;
     }
 
     public Robot(Zona zona, Orientacion orientacion) {
+        this.zona = zona;
         this.coordenada = zona.getCentro();
         this.orientacion = orientacion;
     }
 
     public Robot(Zona zona, Orientacion orientacion, Coordenada coordenada) {
-        this();
-        this.zona = getZona();
-        this.orientacion = getOrientacion();
-        this.coordenada = ;
+        this.zona = zona;
+        this.coordenada = coordenada;
+        this.orientacion = orientacion;
     }
 
     public Robot(Robot robot) {
-        System.out.println("Creamos una copia de robot");
-        Objects.requireNonNull(robot, "No puedo copiar un objeto nulo.");
+        System.out.println("Creamos un robot copia");
         zona = robot.zona;
         coordenada = robot.coordenada;
         orientacion = robot.orientacion;
@@ -44,16 +42,15 @@ public class Robot {
     }
 
     private void setZona(Zona zona) {
-        try {
-            this.zona = new Zona();
-        } catch ()
+        this.zona = zona;
     }
+
 
     public Orientacion getOrientacion() {
         return orientacion;
     }
 
-    private void setOrientacion(Orientacion orientacion) {
+    public void setOrientacion(Orientacion orientacion) {
         this.orientacion = orientacion;
     }
 
@@ -65,4 +62,7 @@ public class Robot {
         this.coordenada = coordenada;
     }
 
+    public void avanzar (Coordenada coordenada) {
+
+    }
 }
