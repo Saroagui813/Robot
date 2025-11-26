@@ -1,6 +1,6 @@
 package org.iesalandalus.programacion.robot.modelo;
 
-import javax.naming.OperationNotSupportedException;
+import java.util.Objects;
 
 public class Robot {
 
@@ -27,6 +27,11 @@ public class Robot {
     }
 
     public Robot(Zona zona, Orientacion orientacion, Coordenada coordenada) {
+        try {
+            setCoordenada(coordenada);
+        } catch (IllegalArgumentException e) {
+            throw new RobotException("Esa coordenada no es válida.");
+        }
         this.zona = zona;
         this.coordenada = coordenada;
         this.orientacion = orientacion;
@@ -62,7 +67,7 @@ public class Robot {
         this.coordenada = nuevaCoordenada;
     }
 
-    public void avanzar throws () {
+    public void avanzar () {
         Coordenada nuevaCoordenada = null;
         switch (orientacion) {
             case NORTE -> nuevaCoordenada = new Coordenada(coordenada.x(), coordenada.y() + 1);
@@ -77,7 +82,49 @@ public class Robot {
         try {
             setCoordenada(nuevaCoordenada);
         } catch (IllegalArgumentException e) {
-            throw new Rob(e);
+            throw new RobotException("Esta coordenada no es válida");
         }
+    }
+
+    public void girarALaDerecha() {
+        orientacion = switch (orientacion) {
+            case SUR -> Orientacion.SUROESTE;
+            case SUROESTE -> Orientacion.OESTE;
+            case OESTE -> Orientacion.NOROESTE;
+            case NOROESTE -> Orientacion.NORTE;
+            case NORTE -> Orientacion.NORESTE;
+            case NORESTE -> Orientacion.ESTE;
+            case ESTE -> Orientacion.SURESTE;
+            case SURESTE -> Orientacion.SUR;
+        };
+    }
+
+    public void girarALaIzquierda() {
+        orientacion = switch (orientacion) {
+            case SUR -> Orientacion.SURESTE;
+            case SURESTE -> Orientacion.ESTE;
+            case ESTE -> Orientacion.NORESTE;
+            case NORESTE -> Orientacion.NORTE;
+            case NORTE -> Orientacion.NOROESTE;
+            case NOROESTE -> Orientacion.OESTE;
+            case OESTE -> Orientacion.SUROESTE;
+            case SUROESTE -> Orientacion.SUR;
+        };
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Robot robot)) return false;
+        return Objects.equals(coordenada, robot.coordenada) && orientacion == robot.orientacion && Objects.equals(zona, robot.zona);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(coordenada, orientacion, zona);
+    }
+
+    @Override
+    public String toString() {
+        return "Robot [Coordenada = " + coordenada + ", Orientación=" + orientacion + ", Zona=" + zona + ']';
     }
 }
