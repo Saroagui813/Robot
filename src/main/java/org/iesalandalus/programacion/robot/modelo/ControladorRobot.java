@@ -4,7 +4,7 @@ public class ControladorRobot {
 
     private Robot robot;
 
-    public ControladorRobot() {
+    public ControladorRobot(Robot robot) {
         this.robot = new Robot(robot);
     }
 
@@ -12,12 +12,12 @@ public class ControladorRobot {
         return new Robot(robot);
     }
 
-    public void ejecutar(char comando) {
+    public void ejecutar(char comando) throws RobotExcepcion {
         switch (comando) {
             case 'A', 'a' -> robot.avanzar();
             case 'I', 'i' -> robot.girarALaIzquierda();
             case 'D', 'd' -> robot.girarALaDerecha();
-            default -> throw new IllegalArgumentException("Comando incorrecto");
+            default -> throw new RobotExcepcion("Comando incorrecto.");
         }
     }
 }
