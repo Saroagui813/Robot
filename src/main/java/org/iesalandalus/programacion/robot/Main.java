@@ -27,7 +27,7 @@ public class Main {
             case 3 -> controlarRobotZonaOrientacion();
             case 4 -> controlarRobotZonaOrientacionCoordenada();
             case 5 -> ejecutarComando();
-            default -> { /*No hacer nada*/}
+            default -> { /*No hacer nada*/ }
         }
     }
 
