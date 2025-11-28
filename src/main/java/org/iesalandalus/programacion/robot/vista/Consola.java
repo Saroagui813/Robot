@@ -17,33 +17,34 @@ public class Consola {
         System.out.println("3. Controlar robot indicando su zona y orientación.");
         System.out.println("4. Controlar robot indicando su zona, orientación y coordenada inicial.");
         System.out.println("5. Ejecutar comando.");
+        System.out.println();
         System.out.println("6. Salir");
+        System.out.println();
     }
 
     public static int elegirOpcion() {
-        Consola.mostrarMenuPrincipal();
-        System.out.println("Elige una opción.");
         int opcionMenu;
         do {
+            System.out.println("Elige una opción.");
             opcionMenu = Entrada.entero();
-        } while (opcionMenu < 1 || opcionMenu > 6);
+        } while (opcionMenu < 1 || opcionMenu > 5);
         return opcionMenu;
     }
 
     public static Zona elegirZona() {
-        int x;
-        int y;
+        Zona zona = null;
         do {
-        System.out.print("Dime el valor de la x: ");
-        x = Entrada.entero();
-        System.out.print("Dime el valor de la y: ");
-        y = Entrada.entero();
-        try {
-            new Zona(x, y);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("La zona no es válida.");
-        }
-        return new Zona(x, y);
+            System.out.print("Dime el valor de la x: ");
+            int ancho = Entrada.entero();
+            System.out.print("Dime el valor de la y: ");
+            int alto = Entrada.entero();
+            try {
+                zona = new Zona(ancho, alto);
+            } catch (IllegalArgumentException iae) {
+                System.out.println("ERROR: " + iae.getMessage());
+            }
+        } while (zona == null);
+        return zona;
     }
 
     public static void mostrarMenuOrientacion() {
@@ -58,26 +59,42 @@ public class Consola {
     }
 
     public static Orientacion elegirOrientacion() {
-        Consola.mostrarMenuOrientacion();
-        System.out.println("Elige una opción.");
         int opcionOrientacion;
         do {
+            System.out.print("Elige la orientación del 1 al 8: ");
             opcionOrientacion = Entrada.entero();
-        } while (opcionOrientacion < 1 || opcionOrientacion > 6);
-        return opcionOrientacion;
+        } while (opcionOrientacion < 1 || opcionOrientacion > 8);
+        return switch (opcionOrientacion) {
+            case 1 -> Orientacion.NORTE;
+            case 2 -> Orientacion.NORESTE;
+            case 3 -> Orientacion.ESTE;
+            case 4 -> Orientacion.SURESTE;
+            case 5 -> Orientacion.SUR;
+            case 6 -> Orientacion.SUROESTE;
+            case 7 -> Orientacion.OESTE;
+            case 8 -> Orientacion.NOROESTE;
+            default -> null;
+        };
     }
 
     public static Coordenada elegirCoordenada() {
-
+        System.out.println("Indica la coordenada de la X.");
+        int x = Entrada.entero();
+        System.out.println("Indica la coordenada de la Y.");
+        int y = Entrada.entero();
+        return new Coordenada(x,y);
     }
 
     public static char elegirComando() {
-
+        System.out.print("Indica el comando a ejecutar: ");
+        return Entrada.caracter();
     }
 
     public static void mostrarRobot(ControladorRobot controladorRobot) {
+        System.out.println();
         Objects.requireNonNull(controladorRobot, "El controlador no puede ser nulo.");
         System.out.println(controladorRobot);
+        System.out.println();
     }
 
     public static void despedirse() {
