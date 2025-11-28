@@ -26,7 +26,7 @@ public class Robot {
         setOrientacion(orientacion);
     }
 
-    public Robot(Zona zona, Orientacion orientacion, Coordenada coordenada) throws IllegalArgumentException {
+    public Robot(Zona zona, Orientacion orientacion, Coordenada coordenada) {
         setZona(zona);
         setCoordenada(coordenada);
         setOrientacion(orientacion);
